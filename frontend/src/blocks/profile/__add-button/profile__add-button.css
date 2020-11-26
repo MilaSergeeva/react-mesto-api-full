@@ -1,0 +1,28 @@
+.profile__add-button {
+  height: 50px;
+  width: 150px;
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  box-sizing: border-box;
+  background-image: url(../../../images/add_btn.svg);
+  border-radius: 2px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  box-shadow: none;
+  margin-bottom: 23px;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+  transition: 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 700px) {
+  .profile__add-button {
+    width: 100%;
+    margin-bottom: 0px;
+  }
+}

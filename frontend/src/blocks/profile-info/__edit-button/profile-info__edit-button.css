@@ -1,0 +1,30 @@
+.profile-info__edit-button {
+  display: block;
+  background-image: url(../../../images/pen.svg);
+  height: 24px;
+  width: 24px;
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+  padding: 0;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.profile-info__edit-button:hover {
+  opacity: 0.6;
+  transition: 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 700px) {
+  .profile-info__edit-button {
+    height: 18px;
+    width: 18px;
+    margin-bottom: 7px;
+  }
+}

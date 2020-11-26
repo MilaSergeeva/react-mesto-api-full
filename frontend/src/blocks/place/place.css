@@ -1,0 +1,21 @@
+@import url(./__img/place__img.css);
+@import url(./__title/place__title.css);
+@import url(./__container/place__container.css);
+@import url(./__like-btn/place__like-btn.css);
+@import url(./__bin-btn/place__bin-btn.css);
+@import url(./__like-btn/__like-btn_on/place__like-btn_on.css);
+@import url(./__container/__container_grid/place__container_grid.css);
+@import url(./__likes-counter/place__likes-counter.css);
+@import url(./__bin-btn/__bin-btn_disabled/place__bin-btn_disabled.css);
+
+.place {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}

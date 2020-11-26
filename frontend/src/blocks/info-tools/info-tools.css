@@ -1,0 +1,7 @@
+@import url(./__container/info-tools__container.css);
+@import url(./__img/info-tools__img.css);
+@import url(./__note/info-tools__note.css);
+
+.info-tools {
+  position: relative;
+}

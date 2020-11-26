@@ -1,0 +1,34 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/inter.css);
+@import url(./blocks/root/root.css);
+@import url(./blocks/page/page.css);
+@import url(./blocks/header/header.css);
+@import url(./blocks/profile/profile.css);
+@import url(./blocks/profile-info/profile-info.css);
+@import url(./blocks/places/places.css);
+@import url(./blocks/place/place.css);
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/content/content.css);
+@import url(./blocks/popup-pic/popup-pic.css);
+
+@import url(./blocks/popup-card-del/popup-card-del.css);
+@import url(./blocks/popup/_opened/popup_opened.css);
+@import url(./blocks/registration/registration.css);
+@import url(./blocks/login/login.css);
+@import url(./blocks/info-tools/info-tools.css);
+@import url(./blocks/error404/error404.css);

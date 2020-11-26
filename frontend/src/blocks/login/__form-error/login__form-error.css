@@ -1,0 +1,7 @@
+.login__form-error {
+  display: block;
+  font-size: 12px;
+  line-height: 1.25;
+  padding-top: 5px;
+  color: #ff0000;
+}

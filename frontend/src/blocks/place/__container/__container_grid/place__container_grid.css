@@ -1,0 +1,8 @@
+.place__container_grid {
+  display: grid;
+  grid-template-columns: 1fr 21px;
+  grid-template-rows: 1fr 1fr;
+  padding: 24px 21px 24px 21px;
+  align-items: center;
+  max-width: 100%;
+}

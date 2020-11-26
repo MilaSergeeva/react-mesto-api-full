@@ -1,0 +1,9 @@
+.error404__link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.2;
+  display: block;
+  text-align: center;
+  margin: 15px 0;
+}

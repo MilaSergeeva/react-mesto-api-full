@@ -1,0 +1,8 @@
+@import url(./__title/error404__title.css);
+@import url(./__link/error404__link.css);
+
+.error404 {
+  /* position: relative; */
+  min-width: 100%;
+  min-height: 100vh;
+}

@@ -1,0 +1,18 @@
+@import url(./__btn-save/__btn-save_disabled/registration__btn-save_disabled.css);
+@import url(./__btn-save/__btn-save_margin_adj/registration__btn-save_margin_adj.css);
+@import url(./__btn-save/registration__btn-save.css);
+@import url(./__error/__error_visible/registration__error_visible.css);
+@import url(./__error/registration__error.css);
+@import url(./__input/__input_type_error/registration__input_type_error.css);
+@import url(./__input/registration__input.css);
+@import url(./__title/registration__title.css);
+@import url(./__content/registration__content.css);
+@import url(./__logined/registration__logined.css);
+@import url(./__notification/registration__notification.css);
+@import url(./__signup-link/registration__signup-link.css);
+@import url(./__form-error/registration__form-error.css);
+
+.registration {
+  box-sizing: border-box;
+  padding: 60px 0 80px;
+}

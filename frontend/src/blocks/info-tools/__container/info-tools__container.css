@@ -1,0 +1,9 @@
+.info-tools__container {
+  max-width: 430px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  padding: 60px 36px;
+  box-sizing: border-box;
+}
