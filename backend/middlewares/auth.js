@@ -9,10 +9,12 @@ module.exports = (req, res, next) => {
   const token = authorization.replace("Bearer ", "");
 
   let payload;
+  const { JWT_SECRET = "dev-key" } = process.env;
 
   try {
     // верифицируем токен
-    payload = jwt.verify(token, process.env.JWT_SECRET);
+    payload = jwt.verify(token, JWT_SECRET);
+    console.log(JWT_SECRET);
   } catch (err) {
     // отправим ошибку, если не получилось
     return res

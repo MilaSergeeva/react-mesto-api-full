@@ -138,3 +138,23 @@ module.exports.login = (req, res) => {
       res.status(401).send({ message: err.message });
     });
 };
+
+// userSchema.statics.findUserByCredentials = function (email, password) {
+//   return this.findOne({ email }).select('+password')
+//     .orFail(new ObjectForError('LoginFailed'))
+//     .then((user) => {
+//       return bcrypt.compare(password, user.password)
+//         .then((match) => {
+//           if (!match) {
+//             return Promise.reject(new ObjectForError('LoginFailed'));
+//           }
+//           return user;
+//         })
+//     });
+// };
+
+// userSchema.methods.toJSON = function () {
+//   var obj = this.toObject();
+//   delete obj.password;
+//   return obj;
+// };

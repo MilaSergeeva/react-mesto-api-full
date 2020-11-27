@@ -34,7 +34,6 @@ app.use(requestLogger); // подключаем логгер запросов
 app.use(bodyParser.json());
 // support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/crash-test", () => {
   setTimeout(() => {
@@ -61,17 +60,21 @@ app.use(errors()); // обработчик ошибок celebrate
 
 //обрабатка ошибки централизованно
 app.use((err, req, res, next) => {
-  // если у ошибки нет статуса, выставляем 500
-  const { statusCode = 500, message } = err;
-  console.log(err);
+  if (err.statusCode === undefined) {
+    // если у ошибки нет статуса, выставляем 500
+    const { statusCode = 500, message } = err;
+    console.log(err);
 
-  res.status(statusCode).send({
-    // проверяем статус и выставляем сообщение в зависимости от него
-    message:
-      statusCode === 500
-        ? `На сервере произошла ошибка: ${err.message}`
-        : message,
-  });
+    res.status(statusCode).send({
+      // проверяем статус и выставляем сообщение в зависимости от него
+      message:
+        statusCode === 500
+          ? `На сервере произошла ошибка: ${err.message}`
+          : message,
+    });
+  }
+
+  res.status(err.statusCode).send({ message: err.message });
 });
 
 /* eslint-disable-next-line */
