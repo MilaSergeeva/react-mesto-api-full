@@ -45,7 +45,7 @@ router.patch(
   "/users/me/avatar",
   celebrate({
     body: Joi.object().keys({
-      link: Joi.string()
+      avatar: Joi.string()
         .required()
         .pattern(new RegExp('^(http|https)://[^ "]+$')),
     }),
