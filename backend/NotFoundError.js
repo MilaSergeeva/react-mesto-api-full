@@ -3,7 +3,7 @@
 class NotFoundError extends Error {
   constructor(message) {
     super(message);
-    //а  если не 404????
+    // а  если не 404????
     this.statusCode = 404;
   }
 }

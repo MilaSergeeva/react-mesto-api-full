@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
+// const validator = require('validator');
 const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })
     .select("+password")
@@ -62,10 +63,12 @@ userSchema.statics.findUserByCredentials = function (email, password) {
     });
 };
 
-// userSchema.methods.toJSON = function () {
-//   let obj = this.toObject();
-//   delete obj.password;
-//   return obj;
-// };
+// удаляем пароль из ответа
+// eslint-disable-next-line func-names
+userSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
 
 module.exports = mongoose.model("user", userSchema);

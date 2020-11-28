@@ -1,5 +1,5 @@
-const router = require("express").Router();
-const { celebrate, Joi } = require("celebrate");
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
 
 const {
   createCard,
@@ -7,12 +7,12 @@ const {
   deleteCards,
   addLikeToCard,
   deleteLikeToCard,
-} = require("../controllers/cards");
+} = require('../controllers/cards');
 
-router.get("/cards", getCards);
+router.get('/cards', getCards);
 
 router.post(
-  "/cards",
+  '/cards',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().required().min(8).max(30),
@@ -22,11 +22,11 @@ router.post(
         .pattern(new RegExp('^(http|https)://[^ "]+$')),
     }),
   }),
-  createCard
+  createCard,
 );
 
 router.delete(
-  "/cards/:cardId",
+  '/cards/:cardId',
   celebrate({
     params: Joi.object()
       .keys({
@@ -39,11 +39,11 @@ router.delete(
       })
       .unknown(true),
   }),
-  deleteCards
+  deleteCards,
 );
 
 router.put(
-  "/cards/:cardId/likes",
+  '/cards/:cardId/likes',
   celebrate({
     params: Joi.object()
       .keys({
@@ -51,10 +51,10 @@ router.put(
       })
       .unknown(true),
   }),
-  addLikeToCard
+  addLikeToCard,
 );
 router.delete(
-  "/cards/:cardId/likes",
+  '/cards/:cardId/likes',
   celebrate({
     params: Joi.object()
       .keys({
@@ -62,7 +62,7 @@ router.delete(
       })
       .unknown(true),
   }),
-  deleteLikeToCard
+  deleteLikeToCard,
 );
 
 module.exports = router;

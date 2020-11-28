@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const { errors } = require("celebrate");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const auth = require("./middlewares/auth");
+const NotFoundError = require("./errors/NotFoundError.js");
 
 const app = express();
 
@@ -21,7 +22,6 @@ mongoose.connect(
 );
 
 const PORT = process.env.PORT || 3000;
-const path = require("path");
 
 const userRoutes = require("./routes/users.js");
 const authRoutes = require("./routes/auth.js");
@@ -49,8 +49,8 @@ app.use(auth);
 app.use("/", userRoutes);
 app.use("/", cardRoutes);
 
-app.use((_req, res) => {
-  res.status(404).send({ message: "Запрашиваемый ресурс не найден" });
+app.use((_req, _res) => {
+  new NotFoundError("Запрашиваемый ресурс не найден");
 });
 
 app.use(errorLogger); // подключаем логгер ошибок
@@ -58,23 +58,14 @@ app.use(errorLogger); // подключаем логгер ошибок
 // обработчики ошибок
 app.use(errors()); // обработчик ошибок celebrate
 
-//обрабатка ошибки централизованно
-app.use((err, req, res, next) => {
-  if (err.statusCode === undefined) {
-    // если у ошибки нет статуса, выставляем 500
-    const { statusCode = 500, message } = err;
-    console.log(err);
+// обрабатка ошибки централизованно
+// eslint-disable-next-line no-unused-vars
+app.use((err, _req, res, _next) => {
+  const { statusCode = 500, message } = err;
 
-    res.status(statusCode).send({
-      // проверяем статус и выставляем сообщение в зависимости от него
-      message:
-        statusCode === 500
-          ? `На сервере произошла ошибка: ${err.message}`
-          : message,
-    });
-  }
-
-  res.status(err.statusCode).send({ message: err.message });
+  res.status(statusCode).send({
+    message: statusCode === 500 ? "На сервере произошла ошибка" : message,
+  });
 });
 
 /* eslint-disable-next-line */

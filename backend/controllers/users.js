@@ -1,88 +1,78 @@
-const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+const NotFoundError = require("../errors/NotFoundError.js");
+const BadRequestError = require("../errors/BadRequestError.js");
+const UnauthorizedError = require("../errors/UnauthorizedError.js");
+const ConflictError = require("../errors/ConflictError.js");
+
 const { JWT_SECRET } = process.env;
 
-const ERROR_CODE_BAD_REQUEST = 400;
-const ERROR_CODE_SEVBER_ERROR = 500;
-const ERROR_CODE_DOCUMENT_NOT_FOUND = 404;
-
 // создаем пользователя
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
 
   bcrypt.hash(password, 10).then((hash) =>
     User.create({
-      name: name,
-      about: about,
-      avatar: avatar,
-      email: email,
+      name,
+      about,
+      avatar,
+      email,
       password: hash,
     })
       .then((user) => res.send(user))
       .catch((err) => {
         if (err.name === "ValidationError") {
-          res.status(ERROR_CODE_BAD_REQUEST).send({
-            message: `Переданы некорректные данные. Ошибка: ${err.message}`,
-          });
-        } else {
-          res.status(ERROR_CODE_SEVBER_ERROR).send({
-            message: `Произошла ошибка ${err.message}`,
-          });
+          // eslint-disable-next-line no-new
+          next(
+            new BadRequestError(
+              `Переданы некорректные данные. Ошибка: ${err.message}`
+            )
+          );
+        } else if (err.message.includes("duplicate key error collection")) {
+          next(
+            new ConflictError(
+              `Переданы некорректные данные. Такой Email уже использован`
+            )
+          );
         }
+
+        next(err);
       })
   );
 };
 
 // получаем всех пользоватеоей
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((data) => res.send(data))
-    .catch(() => {
-      res
-        .status(ERROR_CODE_SEVBER_ERROR)
-        .send({ message: "Запрашиваемый ресурс не найден. Error status 500" });
-    });
+    .catch((err) => next(err));
 };
 
 // находим пользователя
-module.exports.getUserByID = (req, res) => {
+module.exports.getUserByID = (req, res, next) => {
   User.findById({ _id: req.params.id })
     .then((user) => {
       if (!user) {
-        return res
-          .status(ERROR_CODE_DOCUMENT_NOT_FOUND)
-          .send({ message: "Нет пользователя с таким id" });
+        throw new NotFoundError("Нет пользователя с таким id");
       }
+
       return res.status(200).send(user);
     })
-    .catch((err) => {
-      res.status(ERROR_CODE_BAD_REQUEST).send({
-        message: `Запрашиваемый ресурс не найден. Ошибка: ${err.message}`,
-      });
-    });
+    .catch((err) => next(err));
 };
 
 // находим пользователя
-module.exports.getCurrentUser = (req, res) => {
+module.exports.getCurrentUser = (req, res, next) => {
   User.findById({ _id: req.user._id }) // не по айдишнику, а по jwt токену
     .then((user) => {
-      if (!user) {
-        return res
-          .status(ERROR_CODE_DOCUMENT_NOT_FOUND)
-          .send({ message: "Нет пользователя с таким id" });
-      }
       return res.status(200).send(user);
     })
-    .catch((err) => {
-      res.status(ERROR_CODE_BAD_REQUEST).send({
-        message: `Запрашиваемый ресурс не найден. Ошибка: ${err.message}`,
-      });
-    });
+    .catch((err) => next(err));
 };
 
 // обновление профиля
-module.exports.updateUserInfoByID = (req, res) => {
+module.exports.updateUserInfoByID = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(
@@ -93,16 +83,25 @@ module.exports.updateUserInfoByID = (req, res) => {
       runValidators: true,
     }
   )
-    .then((user) => res.status(200).send(user))
-    .catch(() => {
-      res
-        .status(ERROR_CODE_BAD_REQUEST)
-        .send({ message: "Переданы некорректные данные" });
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      if (err.name === "ValidationError") {
+        // eslint-disable-next-line no-new
+        next(
+          new BadRequestError(
+            `Переданы некорректные данные. Ошибка: ${err.message}`
+          )
+        );
+      } else {
+        next(err);
+      }
     });
 };
 
 // обновление аватара
-module.exports.updateUserAvatarByID = (req, res) => {
+module.exports.updateUserAvatarByID = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(
@@ -114,18 +113,17 @@ module.exports.updateUserAvatarByID = (req, res) => {
     }
   )
     .then((user) => res.status(200).send(user))
-    .catch(() => {
-      res
-        .status(ERROR_CODE_BAD_REQUEST)
-        .send({ message: "Переданы некорректные данные" });
-    });
+    .catch((err) => next(err));
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
+      if (!user) {
+        throw new UnauthorizedError("Ошибка аутентификации");
+      }
       const jwtSecret = JWT_SECRET;
       // аутентификация успешна
       const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: "7d" });
@@ -134,27 +132,15 @@ module.exports.login = (req, res) => {
       res.send({ token });
     })
     .catch((err) => {
-      // ошибка аутентификации
-      res.status(401).send({ message: err.message });
+      if (err.name === "ValidationError") {
+        // eslint-disable-next-line no-new
+        next(
+          new BadRequestError(
+            `Переданы некорректные данные. Ошибка: ${err.message}`
+          )
+        );
+      } else {
+        next(err);
+      }
     });
 };
-
-// userSchema.statics.findUserByCredentials = function (email, password) {
-//   return this.findOne({ email }).select('+password')
-//     .orFail(new ObjectForError('LoginFailed'))
-//     .then((user) => {
-//       return bcrypt.compare(password, user.password)
-//         .then((match) => {
-//           if (!match) {
-//             return Promise.reject(new ObjectForError('LoginFailed'));
-//           }
-//           return user;
-//         })
-//     });
-// };
-
-// userSchema.methods.toJSON = function () {
-//   var obj = this.toObject();
-//   delete obj.password;
-//   return obj;
-// };

@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
+const UnauthorizedError = require("../errors/UnauthorizedError.js");
 
+// eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
@@ -14,12 +16,12 @@ module.exports = (req, res, next) => {
   try {
     // верифицируем токен
     payload = jwt.verify(token, JWT_SECRET);
-    console.log(JWT_SECRET);
-  } catch (err) {
+  } catch (e) {
     // отправим ошибку, если не получилось
-    return res
-      .status(401)
-      .send({ message: "Необходима авторизация. Токен не валидный." });
+    const err = new Error("Необходима авторизация. Токен не валидный.");
+    err.statusCode = 401;
+
+    next(err);
   }
 
   req.user = payload; // записываем пейлоуд в объект запроса
