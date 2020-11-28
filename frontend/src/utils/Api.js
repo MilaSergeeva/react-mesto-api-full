@@ -64,14 +64,14 @@ class Api {
   }
 
   likeCard(cardId) {
-    const endpoint = `cards/likes/${cardId}`;
+    const endpoint = `cards/${cardId}/likes`;
     const httpMethod = "PUT";
 
     return this.makeRequest(endpoint, httpMethod);
   }
 
   deleteLikeCard(cardId) {
-    const endpoint = `cards/likes/${cardId}`;
+    const endpoint = `cards/${cardId}/likes`;
     const httpMethod = "DELETE";
 
     return this.makeRequest(endpoint, httpMethod);
