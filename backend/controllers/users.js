@@ -6,7 +6,7 @@ const BadRequestError = require('../errors/BadRequestError.js');
 const UnauthorizedError = require('../errors/UnauthorizedError.js');
 const ConflictError = require('../errors/ConflictError.js');
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET = 'dev-key' } = process.env;
 
 // создаем пользователя
 module.exports.createUser = (req, res, next) => {
