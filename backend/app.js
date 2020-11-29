@@ -18,7 +18,7 @@ mongoose.connect(
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-  },
+  }
 );
 
 const PORT = process.env.PORT || 3000;
@@ -49,9 +49,11 @@ app.use(auth);
 app.use('/', userRoutes);
 app.use('/', cardRoutes);
 
-app.use(() => {
-  // eslint-disable-next-line no-new
-  new NotFoundError('Запрашиваемый ресурс не найден');
+app.use((_req, _res, next) => {
+  // res.status(404).send({ message: "Запрашиваемый ресурс не найден" });
+  const err = new NotFoundError('Страница не найдена');
+
+  next(err);
 });
 
 app.use(errorLogger); // подключаем логгер ошибок

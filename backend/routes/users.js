@@ -27,7 +27,7 @@ router.get(
       })
       .unknown(true),
   }),
-  getUserByID,
+  getUserByID
 );
 
 router.patch(
@@ -38,7 +38,7 @@ router.patch(
       about: Joi.string().min(2).max(30),
     }),
   }),
-  updateUserInfoByID,
+  updateUserInfoByID
 );
 
 router.patch(
@@ -50,7 +50,7 @@ router.patch(
         .pattern(new RegExp('^(http|https)://[^ "]+$')),
     }),
   }),
-  updateUserAvatarByID,
+  updateUserAvatarByID
 );
 
 module.exports = router;

@@ -22,7 +22,7 @@ router.post(
         .pattern(new RegExp('^(http|https)://[^ "]+$')),
     }),
   }),
-  createCard,
+  createCard
 );
 
 router.delete(
@@ -39,7 +39,7 @@ router.delete(
       })
       .unknown(true),
   }),
-  deleteCards,
+  deleteCards
 );
 
 router.put(
@@ -51,7 +51,7 @@ router.put(
       })
       .unknown(true),
   }),
-  addLikeToCard,
+  addLikeToCard
 );
 
 router.delete(
@@ -63,7 +63,7 @@ router.delete(
       })
       .unknown(true),
   }),
-  deleteLikeToCard,
+  deleteLikeToCard
 );
 
 module.exports = router;

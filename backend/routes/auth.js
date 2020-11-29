@@ -14,7 +14,7 @@ router.post(
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
     }),
   }),
-  createUser,
+  createUser
 );
 
 router.post(
@@ -28,7 +28,7 @@ router.post(
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
     }),
   }),
-  login,
+  login
 );
 
 module.exports = router;

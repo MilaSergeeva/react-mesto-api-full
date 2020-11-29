@@ -14,7 +14,7 @@ module.exports.createCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         new BadRequestError(
-          `Переданы некорректные данные. Ошибка: ${err.message}`,
+          `Переданы некорректные данные. Ошибка: ${err.message}`
         );
       }
       next(err);
@@ -51,7 +51,7 @@ module.exports.addLikeToCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     {
       new: true,
-    },
+    }
   )
     .orFail(new NotFoundError('Запрашиваемый ресурс не найден'))
     .then((card) => res.status(200).send(card))
@@ -71,7 +71,7 @@ module.exports.deleteLikeToCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     {
       new: true,
-    },
+    }
   )
     .orFail()
     .then((card) => res.status(200).send(card))

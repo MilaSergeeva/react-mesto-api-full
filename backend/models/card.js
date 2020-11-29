@@ -11,11 +11,6 @@ const cardSchema = new mongoose.Schema(
     link: {
       type: String,
       required: true,
-      // validate: {
-      //   validator(value) {
-      //     return /^(http|https):\/\/[^ "]+$/.test(value);
-      //   },
-      // },
     },
     owner: {
       required: true,
@@ -29,7 +24,7 @@ const cardSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 module.exports = mongoose.model('card', cardSchema);

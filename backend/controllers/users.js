@@ -10,36 +10,36 @@ const { JWT_SECRET } = process.env;
 
 // создаем пользователя
 module.exports.createUser = (req, res, next) => {
-  const {
-    name, about, avatar, email, password,
-  } = req.body;
+  const { name, about, avatar, email, password } = req.body;
 
-  bcrypt.hash(password, 10).then((hash) => User.create({
-    name,
-    about,
-    avatar,
-    email,
-    password: hash,
-  })
-    .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        // eslint-disable-next-line no-new
-        next(
-          new BadRequestError(
-            `Переданы некорректные данные. Ошибка: ${err.message}`,
-          ),
-        );
-      } else if (err.message.includes('duplicate key error collection')) {
-        next(
-          new ConflictError(
-            'Переданы некорректные данные. Такой Email уже использован',
-          ),
-        );
-      }
+  bcrypt.hash(password, 10).then((hash) =>
+    User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    })
+      .then((user) => res.send(user))
+      .catch((err) => {
+        if (err.name === 'ValidationError') {
+          // eslint-disable-next-line no-new
+          next(
+            new BadRequestError(
+              `Переданы некорректные данные. Ошибка: ${err.message}`
+            )
+          );
+        } else if (err.message.includes('duplicate key error collection')) {
+          next(
+            new ConflictError(
+              'Переданы некорректные данные. Такой Email уже использован'
+            )
+          );
+        }
 
-      next(err);
-    }));
+        next(err);
+      })
+  );
 };
 
 // получаем всех пользоватеоей
@@ -79,7 +79,7 @@ module.exports.updateUserInfoByID = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-    },
+    }
   )
     .then((user) => {
       res.status(200).send(user);
@@ -89,8 +89,8 @@ module.exports.updateUserInfoByID = (req, res, next) => {
         // eslint-disable-next-line no-new
         next(
           new BadRequestError(
-            `Переданы некорректные данные. Ошибка: ${err.message}`,
-          ),
+            `Переданы некорректные данные. Ошибка: ${err.message}`
+          )
         );
       } else {
         next(err);
@@ -108,7 +108,7 @@ module.exports.updateUserAvatarByID = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-    },
+    }
   )
     .then((user) => res.status(200).send(user))
     .catch((err) => next(err));
@@ -134,8 +134,8 @@ module.exports.login = (req, res, next) => {
         // eslint-disable-next-line no-new
         next(
           new BadRequestError(
-            `Переданы некорректные данные. Ошибка: ${err.message}`,
-          ),
+            `Переданы некорректные данные. Ошибка: ${err.message}`
+          )
         );
       } else {
         next(err);
