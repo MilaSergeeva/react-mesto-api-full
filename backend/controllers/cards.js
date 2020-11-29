@@ -1,8 +1,8 @@
 /* eslint-disable no-new */
-const Card = require("../models/card");
-const NotFoundError = require("../errors/NotFoundError.js");
-const BadRequestError = require("../errors/BadRequestError.js");
-const ForbiddenError = require("../errors/ForbiddenError.js");
+const Card = require('../models/card');
+const NotFoundError = require('../errors/NotFoundError.js');
+const BadRequestError = require('../errors/BadRequestError.js');
+const ForbiddenError = require('../errors/ForbiddenError.js');
 
 // создаем карточку
 module.exports.createCard = (req, res, next) => {
@@ -12,9 +12,9 @@ module.exports.createCard = (req, res, next) => {
   Card.create({ owner, name, link })
     .then((card) => res.status(200).send(card))
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         new BadRequestError(
-          `Переданы некорректные данные. Ошибка: ${err.message}`
+          `Переданы некорректные данные. Ошибка: ${err.message}`,
         );
       }
       next(err);
@@ -34,7 +34,7 @@ module.exports.deleteCards = (req, res, next) => {
   Card.findOneAndDelete({ _id: req.params.cardId, owner: req.user._id })
     .then((card) => {
       if (!card) {
-        throw new ForbiddenError("Недостаточно прав для удаления карточки");
+        throw new ForbiddenError('Недостаточно прав для удаления карточки');
       }
 
       res.status(200).send(card);
@@ -51,13 +51,13 @@ module.exports.addLikeToCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     {
       new: true,
-    }
+    },
   )
-    .orFail(new NotFoundError("Запрашиваемый ресурс не найден"))
+    .orFail(new NotFoundError('Запрашиваемый ресурс не найден'))
     .then((card) => res.status(200).send(card))
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
-        new NotFoundError("Запрашиваемый ресурс не найден");
+      if (err.name === 'DocumentNotFoundError') {
+        new NotFoundError('Запрашиваемый ресурс не найден');
       }
 
       next(err);
@@ -71,13 +71,13 @@ module.exports.deleteLikeToCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     {
       new: true,
-    }
+    },
   )
     .orFail()
     .then((card) => res.status(200).send(card))
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
-        new NotFoundError("Запрашиваемый ресурс не найден");
+      if (err.name === 'DocumentNotFoundError') {
+        new NotFoundError('Запрашиваемый ресурс не найден');
       }
 
       next(err);

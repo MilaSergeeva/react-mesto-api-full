@@ -1,31 +1,31 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const { errors } = require("celebrate");
-const { requestLogger, errorLogger } = require("./middlewares/logger");
-const auth = require("./middlewares/auth");
-const NotFoundError = require("./errors/NotFoundError.js");
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const auth = require('./middlewares/auth');
+const NotFoundError = require('./errors/NotFoundError.js');
 
 const app = express();
 
 mongoose.connect(
-  process.env.MONGODB_URL || "mongodb://localhost:27017/mestodb",
+  process.env.MONGODB_URL || 'mongodb://localhost:27017/mestodb',
   {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-  }
+  },
 );
 
 const PORT = process.env.PORT || 3000;
 
-const userRoutes = require("./routes/users.js");
-const authRoutes = require("./routes/auth.js");
-const cardRoutes = require("./routes/cards.js");
+const userRoutes = require('./routes/users.js');
+const authRoutes = require('./routes/auth.js');
+const cardRoutes = require('./routes/cards.js');
 
 app.use(cors());
 app.use(requestLogger); // подключаем логгер запросов
@@ -35,22 +35,23 @@ app.use(bodyParser.json());
 // support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/crash-test", () => {
+app.get('/crash-test', () => {
   setTimeout(() => {
-    throw new Error("Сервер сейчас упадёт");
+    throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
 
-app.use("/", authRoutes);
+app.use('/', authRoutes);
 
 // авторизация
 app.use(auth);
 
-app.use("/", userRoutes);
-app.use("/", cardRoutes);
+app.use('/', userRoutes);
+app.use('/', cardRoutes);
 
-app.use((_req, _res) => {
-  new NotFoundError("Запрашиваемый ресурс не найден");
+app.use(() => {
+  // eslint-disable-next-line no-new
+  new NotFoundError('Запрашиваемый ресурс не найден');
 });
 
 app.use(errorLogger); // подключаем логгер ошибок
@@ -64,7 +65,7 @@ app.use((err, _req, res, _next) => {
   const { statusCode = 500, message } = err;
 
   res.status(statusCode).send({
-    message: statusCode === 500 ? "На сервере произошла ошибка" : message,
+    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
   });
 });
 

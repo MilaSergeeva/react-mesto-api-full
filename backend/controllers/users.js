@@ -1,45 +1,45 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
-const NotFoundError = require("../errors/NotFoundError.js");
-const BadRequestError = require("../errors/BadRequestError.js");
-const UnauthorizedError = require("../errors/UnauthorizedError.js");
-const ConflictError = require("../errors/ConflictError.js");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+const NotFoundError = require('../errors/NotFoundError.js');
+const BadRequestError = require('../errors/BadRequestError.js');
+const UnauthorizedError = require('../errors/UnauthorizedError.js');
+const ConflictError = require('../errors/ConflictError.js');
 
 const { JWT_SECRET } = process.env;
 
 // создаем пользователя
 module.exports.createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
 
-  bcrypt.hash(password, 10).then((hash) =>
-    User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
-    })
-      .then((user) => res.send(user))
-      .catch((err) => {
-        if (err.name === "ValidationError") {
-          // eslint-disable-next-line no-new
-          next(
-            new BadRequestError(
-              `Переданы некорректные данные. Ошибка: ${err.message}`
-            )
-          );
-        } else if (err.message.includes("duplicate key error collection")) {
-          next(
-            new ConflictError(
-              `Переданы некорректные данные. Такой Email уже использован`
-            )
-          );
-        }
+  bcrypt.hash(password, 10).then((hash) => User.create({
+    name,
+    about,
+    avatar,
+    email,
+    password: hash,
+  })
+    .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        // eslint-disable-next-line no-new
+        next(
+          new BadRequestError(
+            `Переданы некорректные данные. Ошибка: ${err.message}`,
+          ),
+        );
+      } else if (err.message.includes('duplicate key error collection')) {
+        next(
+          new ConflictError(
+            'Переданы некорректные данные. Такой Email уже использован',
+          ),
+        );
+      }
 
-        next(err);
-      })
-  );
+      next(err);
+    }));
 };
 
 // получаем всех пользоватеоей
@@ -54,7 +54,7 @@ module.exports.getUserByID = (req, res, next) => {
   User.findById({ _id: req.params.id })
     .then((user) => {
       if (!user) {
-        throw new NotFoundError("Нет пользователя с таким id");
+        throw new NotFoundError('Нет пользователя с таким id');
       }
 
       return res.status(200).send(user);
@@ -65,9 +65,7 @@ module.exports.getUserByID = (req, res, next) => {
 // находим пользователя
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById({ _id: req.user._id }) // не по айдишнику, а по jwt токену
-    .then((user) => {
-      return res.status(200).send(user);
-    })
+    .then((user) => res.status(200).send(user))
     .catch((err) => next(err));
 };
 
@@ -81,18 +79,18 @@ module.exports.updateUserInfoByID = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-    }
+    },
   )
     .then((user) => {
       res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         // eslint-disable-next-line no-new
         next(
           new BadRequestError(
-            `Переданы некорректные данные. Ошибка: ${err.message}`
-          )
+            `Переданы некорректные данные. Ошибка: ${err.message}`,
+          ),
         );
       } else {
         next(err);
@@ -110,7 +108,7 @@ module.exports.updateUserAvatarByID = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-    }
+    },
   )
     .then((user) => res.status(200).send(user))
     .catch((err) => next(err));
@@ -122,22 +120,22 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
-        throw new UnauthorizedError("Ошибка аутентификации");
+        throw new UnauthorizedError('Ошибка аутентификации');
       }
       const jwtSecret = JWT_SECRET;
       // аутентификация успешна
-      const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: "7d" });
+      const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: '7d' });
 
       // возвращаем токен
       res.send({ token });
     })
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         // eslint-disable-next-line no-new
         next(
           new BadRequestError(
-            `Переданы некорректные данные. Ошибка: ${err.message}`
-          )
+            `Переданы некорректные данные. Ошибка: ${err.message}`,
+          ),
         );
       } else {
         next(err);

@@ -1,34 +1,34 @@
-const router = require("express").Router();
-const { celebrate, Joi } = require("celebrate");
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
 
-const { createUser, login } = require("../controllers/users");
+const { createUser, login } = require('../controllers/users');
 
 router.post(
-  "/signup",
+  '/signup',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email(),
       password: Joi.string()
         .required()
         .min(8)
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
     }),
   }),
-  createUser
+  createUser,
 );
 
 router.post(
-  "/signin",
+  '/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email(),
       password: Joi.string()
         .required()
         .min(8)
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
     }),
   }),
-  login
+  login,
 );
 
 module.exports = router;
