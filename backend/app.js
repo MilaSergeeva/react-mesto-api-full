@@ -50,7 +50,6 @@ app.use('/', userRoutes);
 app.use('/', cardRoutes);
 
 app.use((_req, _res, next) => {
-  // res.status(404).send({ message: "Запрашиваемый ресурс не найден" });
   const err = new NotFoundError('Страница не найдена');
 
   next(err);

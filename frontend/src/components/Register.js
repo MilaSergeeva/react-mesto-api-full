@@ -14,7 +14,6 @@ const Register = ({ onRegister, onChange, regUserData, messageOnRegister }) => {
   };
 
   return (
-    // <Router>
     <section className="registration">
       <div className="registration__container">
         <div className="registration__content">
