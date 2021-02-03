@@ -4,12 +4,12 @@
 
 It is a full-stack single page application to allow users to upload, view, like and delete photos.
 
-To use the service user neet to registre himself and to login.
+To use the service user need to register himself and to login.
 
-### Links to test
+### :arrow_right: Links to test
 
-backend https://mesto-react.herokuapp.com
-frontend https://mesto-react-front.herokuapp.com
+Backend https://mesto-react.herokuapp.com <br>
+Frontend https://mesto-react-front.herokuapp.com
 
 ### :hammer_and_pick: Technologies were used
 
@@ -47,9 +47,9 @@ frontend https://mesto-react-front.herokuapp.com
 
 - Git versions, branches.
 
-### preview
+### Preview
 
-![alt text](screenshots/registration.png "Registration")
+![alt text](screenshots/registration.png | width=50% "Registration")
 
 ![alt text](screenshots/notific_failed.png "Registration failed notification")
 
