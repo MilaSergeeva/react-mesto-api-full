@@ -49,8 +49,7 @@ Frontend https://mesto-react-front.herokuapp.com
 
 ### Preview
 
-![alt text](screenshots/registration.png | width=50% "Registration")
-<img src="./screenshots/registration.png" width="100" height="100">
+<img src="./screenshots/registration.png" width="50%" height="50%">
 
 ![alt text](screenshots/notific_failed.png "Registration failed notification")
 
