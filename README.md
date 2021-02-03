@@ -1,32 +1,27 @@
-# react-mesto-api-full
-
-Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. Бэкенд расположите в директории `backend/`, а фронтенд - в `frontend/`.
-
-backend https://mesto-react.herokuapp.com
-frontend https://mesto-react-front.herokuapp.com
-
 # MESTO
 
 ## Study project at Practicum by Yandex
 
 It is a full-stack single page application to allow users to upload, view, like and delete photos.
 
+To use the service user neet to registre himself and to login.
+
 ### Links to test
 
 backend https://mesto-react.herokuapp.com
 frontend https://mesto-react-front.herokuapp.com
 
-### :hammer_and_pick: Technologies
+### :hammer_and_pick: Technologies were used
 
 - JavaScript ES6 - object-oriented programming, fetch API (GET, PUT, DELETE, POST, PATCH)
+
+- React.js (functional and class components, Context, Ref, Redirect, Route, Switch functions etc.),
 
 - semantic HTML5, styles - CSS3 (Flexbox, Grid, adaptive layout),
 
 - JSX,
 
 - BEM - Block Element Modifier is a methodology,
-
-- React.js (functional and class components, Context, Ref, Redirect, Route, Switch functions etc.),
 
 - React hooks (useState, useEffect, useContext, useRef, useHistory),
 
@@ -51,3 +46,15 @@ frontend https://mesto-react-front.herokuapp.com
 - Figma, Pixel perfect,
 
 - Git versions, branches.
+
+### preview
+
+![alt text](screenshots/registration.png "Registration")
+
+![alt text](screenshots/notific_failed.png "Registration failed notification")
+
+![alt text](screenshots/notific_success.png "Registration success notification")
+
+![alt text](screenshots/Edit_profile.png "Edit profile info")
+
+![alt text](screenshots/users_main.png "Main page")
