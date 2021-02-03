@@ -49,12 +49,17 @@ Frontend https://mesto-react-front.herokuapp.com
 
 ### Preview
 
-<img src="./screenshots/registration.png" width="50%" height="50%">
+Registration<br>
+<img src="./screenshots/registration.png" width="75%" height="75%"><br>
 
-![alt text](screenshots/notific_failed.png "Registration failed notification")
+Registration failed notification<br>
+<img src="./screenshots/notific_failed.png" width="75%" height="75%"><br>
 
-![alt text](screenshots/notific_success.png "Registration success notification")
+Registration success notification<br>
+<img src="./screenshots/notific_success.png" width="75%" height="75%"><br>
 
-![alt text](screenshots/Edit_profile.png "Edit profile info")
+Edit profile info<br>
+<img src="./screenshots/Edit_profile.png" width="75%" height="75%"><br>
 
-![alt text](screenshots/users_main.png "Main page")
+Main page<br>
+<img src="./screenshots/users_main.png" width="75%" height="75%"><br>
