@@ -23,7 +23,7 @@ const Login = ({ onLogin, onChange, loginData, messageOnLogin }) => {
             onSubmit={handleSubmit}
             noValidate
           >
-            <h3 className="login__title">Вход</h3>
+            <h3 className="login__title">Login</h3>
             <div className="login__input-container">
               <input
                 type="email"
