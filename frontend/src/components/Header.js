@@ -27,7 +27,7 @@ function Header({ handleLogout, currentUser }) {
               className="header__link header__link_logout"
               onClick={handleLogout}
             >
-              Login
+              Logout
             </Link>
           </Route>
         </Switch>
