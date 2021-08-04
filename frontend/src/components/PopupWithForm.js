@@ -25,7 +25,7 @@ const PopupWithForm = (props) => {
             <button
               type="submit"
               className="popup__btn-save"
-              data-submitting-label="Сохраняется..."
+              data-submitting-label="Saving..."
             >
               {props.savebtn}
             </button>
