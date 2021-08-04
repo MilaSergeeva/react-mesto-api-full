@@ -13,12 +13,12 @@ function Header({ handleLogout, currentUser }) {
         <Switch>
           <Route path="/signin">
             <Link to="/signup" className="header__link">
-              Регистрация
+              Registration
             </Link>
           </Route>
           <Route path="/signup">
             <Link to="/signin" className="header__link">
-              Вход
+              Login
             </Link>
           </Route>
           <Route path="/users/me">
@@ -27,7 +27,7 @@ function Header({ handleLogout, currentUser }) {
               className="header__link header__link_logout"
               onClick={handleLogout}
             >
-              Выход
+              Login
             </Link>
           </Route>
         </Switch>

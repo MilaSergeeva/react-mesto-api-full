@@ -33,8 +33,8 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   return (
     <PopupWithForm
       name="edit"
-      title="Редактировать профиль"
-      savebtn="Сохранить"
+      title="Edit profile"
+      savebtn="Save"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
@@ -44,7 +44,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
           value={name}
           type="text"
           name="user-name"
-          placeholder="Имя"
+          placeholder="Name"
           className="popup__input"
           minLength="2"
           maxLength="40"
@@ -59,7 +59,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
           value={description}
           type="text"
           name="user-occupation"
-          placeholder="Род деятельности"
+          placeholder="Occupation"
           className="popup__input"
           minLength="2"
           maxLength="200"

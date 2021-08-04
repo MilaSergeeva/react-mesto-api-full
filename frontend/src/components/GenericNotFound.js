@@ -6,7 +6,7 @@ function GenericNotFound() {
     <div className="error404">
       <h2 className="error404__title">Error 404</h2>
       <Link to="/signin" className="error404__link">
-        Перехд на страницу входа
+        Go to the login page
       </Link>
     </div>
   );

@@ -24,7 +24,7 @@ const Register = ({ onRegister, onChange, regUserData, messageOnRegister }) => {
             onSubmit={handleSubmit}
             noValidate
           >
-            <h3 className="registration__title">Регистрация</h3>
+            <h3 className="registration__title">Registration</h3>
             <div className="registration__input-container">
               <input
                 value={regUserData.email}
@@ -45,7 +45,7 @@ const Register = ({ onRegister, onChange, regUserData, messageOnRegister }) => {
                 value={regUserData.password}
                 type="password"
                 name="password"
-                placeholder="Пароль"
+                placeholder="Password (only letters and numbers)"
                 className="registration__input"
                 minLength="2"
                 maxLength="20"
@@ -59,16 +59,18 @@ const Register = ({ onRegister, onChange, regUserData, messageOnRegister }) => {
             <button
               type="submit"
               className="registration__btn-save"
-              data-submitting-label="Регистрация..."
+              data-submitting-label="Registration..."
               onSubmit={handleSubmit}
             >
-              Зарегистрироваться
+              Register
             </button>
           </form>
           <div className="registration__logined">
-            <p className="registration__notification">Уже зарегистрированы? </p>
+            <p className="registration__notification">
+              Are you already registred?{" "}
+            </p>
             <Link to="/signin" className="registration__signup-link">
-              Войти
+              Login
             </Link>
           </div>
         </div>

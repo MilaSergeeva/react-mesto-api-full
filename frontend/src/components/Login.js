@@ -43,7 +43,7 @@ const Login = ({ onLogin, onChange, loginData, messageOnLogin }) => {
               <input
                 type="password"
                 name="password"
-                placeholder="Пароль"
+                placeholder="Password"
                 className="login__input"
                 minLength="2"
                 maxLength="20"
@@ -60,7 +60,7 @@ const Login = ({ onLogin, onChange, loginData, messageOnLogin }) => {
               className="login__btn-save"
               data-submitting-label="Ожидается..."
             >
-              Войти
+              Login
             </button>
           </form>
         </div>

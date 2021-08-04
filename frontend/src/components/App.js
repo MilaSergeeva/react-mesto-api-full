@@ -156,7 +156,7 @@ function App() {
         history.push("/users/me");
       })
       .catch((err) => {
-        setMessageOnLogin("Ошибка авторизации. Повторите попытку.");
+        setMessageOnLogin("Authorization failed. Please try again.");
       });
   };
 
@@ -182,7 +182,7 @@ function App() {
       .catch(() => {
         setIsInfoToolsPopupOpen(true);
         setSignupSuccess(false);
-        setMessageOnRegister("Проверьте введенные данные");
+        setMessageOnRegister("Check the entered data");
       });
   };
 
@@ -276,7 +276,7 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
           />
 
-          <PopupWithForm name="card-del" title="Вы уверены?" savebtn="Да" />
+          <PopupWithForm name="card-del" title="Are you sure?" savebtn="Yes" />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}

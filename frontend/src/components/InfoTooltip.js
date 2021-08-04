@@ -20,8 +20,8 @@ const InfoTooltip = ({ success, isOpen, onClose }) => {
           />
           <h3 className="info-tools__note">
             {success === true
-              ? "Вы успешно зарегестрировались!"
-              : "Что-то пошло не так! Попробуйте еще раз."}
+              ? "You have successfully registered!"
+              : "Something went wrong! Please try again."}
           </h3>
         </div>
       </div>
